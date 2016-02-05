@@ -1,0 +1,32 @@
+<%= do_index({
+  title: t(".#{params[:messagetype]}"),
+  rowclass: lambda { |d| d.unread ? 'unread' : 'read' },
+  columns: [
+    :id,
+    :subject,
+    Btemplater::IndexDecorator.new(:sender, lambda { |d| d.try(:pretty_name) }),
+    Btemplater::IndexDecorator.new(:recipient, lambda { |d| d.try(:pretty_name) }),
+    Btemplater::IndexDecorator.new(:created_at, lambda { |d| l(d) })
+  ],
+  items: @objects,
+  model: Notifications::Message,
+  actions: [
+    Btemplater::ActionDecorator.new(
+      :show,
+      lambda { |objs| notifications.message_path(params[:messagetype], objs) },
+      t('actions.show', scope: :btemplater),
+      'file'
+    ),
+    Btemplater::ActionDecorator.new(
+      :destroy,
+      lambda { |objs| notifications.message_path(params[:messagetype], objs) },
+      t('actions.destroy', scope: :btemplater),
+      'trash',
+      :delete,
+      {confirm: t('actions.are_you_sure', scope: :btemplater)}
+    )
+  ]
+  })
+%>
+
+<%= do_new_button({model: Notifications::Message.new(messagetype: params[:messagetype])}) %>

@@ -1,0 +1,42 @@
+hu:
+  btemplater:
+    actions:
+      reply: 'Válasz'
+  notifications:
+    actions:
+      reply: 'Válasz'
+    messages:
+      index:
+        messages: 'Üzenetek'
+        notifications: 'Értesítések'
+        reports: 'Jelentések'
+      show:
+        messages: '%{obj}'
+        notifications: '%{obj}'
+        reports: '%{obj}'
+      new:
+        messages: 'Új üzenet'
+        notifications: 'Értesítések'
+        reports: 'Jelentések'
+      reply:
+        messages: 'Új üzenet'
+    notifications:
+      re: 'Válasz: '
+      messages:
+        index:
+          messages: 'Üzenetek'
+          notifications: 'Értesítések'
+          reports: 'Jelentések'
+          new: 'Új'
+  activerecord:
+    models:
+      'notifications/message': 'Üzenet'
+    attributes:
+      'notifications/message':
+        id: 'AZ'
+        subject: 'Tárgy'
+        body: 'Szöveg'
+        sender: 'Feladó'
+        recipient: 'Címzett'
+        recipient_id: 'Címzett'
+        created_at: 'Létrehozva'

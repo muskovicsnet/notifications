@@ -1,0 +1,23 @@
+<%= do_new({
+    title: t(".#{params[:messagetype]}"),
+    columns: [
+      :subject,
+      Btemplater::NewDecorator.new(
+        :recipient_id,
+        Proc.new do |f, c|
+          f.input c.name, collection: Notifications::Engine.config.send("#{params[:messagetype]}_recipient_class").all.map { |u| [u.pretty_name, u.id] }, disabled: true
+        end
+      ),
+      Btemplater::NewDecorator.new(
+        :body,
+        Proc.new do |f, c|
+          f.input c.name, input_html: {rows: 10}
+        end
+      ),
+    ],
+    item: @obj,
+    model: Notifications::Message,
+    url: notifications.reply_message_path(params[:messagetype], @prev_obj),
+    method: :post
+  })
+%>

@@ -1,0 +1,16 @@
+<%= do_new({
+    title: t(".#{params[:messagetype]}"),
+    columns: [
+      :subject,
+      Btemplater::NewDecorator.new(
+        :recipient_id,
+        Notifications::Engine.config.send("#{params[:messagetype]}_recipient_decorator")
+      ),
+      :body
+    ],
+    item: @obj,
+    model: Notifications::Message,
+    url: notifications.messages_path(params[:messagetype]),
+    method: :post
+  })
+%>

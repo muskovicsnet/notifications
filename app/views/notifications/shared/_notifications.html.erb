@@ -1,0 +1,14 @@
+<li>
+  <%= link_to notifications.messages_path(ntype), title: t("notifications.messages.index.#{ntype}", scope: :notifications) do %>
+    <span class="fa fa-<%= nicon %>"></span> <span id="notifications_<%= ntype %>_count" class="count-info label label-<%= nclass %>"></span>
+  <% end %>
+</li>
+
+<% if user_signed_in? %>
+  <script type="text/javascript">
+    $(document).on('ready', function() {
+      window['<%= ntype %>'] = new notificationclass('<%= notifications.messages_count_path(ntype) %>', '<%= ntype %>', 60000)
+    });
+
+  </script>
+<% end %>
